@@ -39,7 +39,7 @@
    2. Add below configuration to the end of the `standalone.conf.bat`file
    
       ```
-      set "JAVA_OPTS=%JAVA_OPTS% -javaagent:<Your Path>\application-insights\applicationinsights-agent-3.4.15.jar"
+   set "JAVA_OPTS=%JAVA_OPTS% -javaagent:<Your Path>\application-insights\applicationinsights-agent-3.4.15.jar"
       ```
 
       ![image-20230804133404668](https://s2.loli.net/2023/08/04/wei2nmpFq6XgEx7.png)
