@@ -49,7 +49,7 @@
    
       You should see the **JAVA_OPTS** contains `applicationinsights-agent-3.4.15.jar`.
    
-      ![](..\Resources\JBoss\run_standalone_bat.jpg)
+      ![](../Resources/JBoss/run_standalone_bat.jpg)
    
 7. Check metrics in Application Insights Portal
    1. You should be able to status like below in the Application Insights Portal.
