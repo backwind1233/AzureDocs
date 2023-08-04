@@ -39,13 +39,17 @@
    2. Add below configuration to the end of the `standalone.conf.bat`file
    
       ```
-   set "JAVA_OPTS=%JAVA_OPTS% -javaagent:<Your Path>\application-insights\applicationinsights-agent-3.4.15.jar"
+      set "JAVA_OPTS=%JAVA_OPTS% -javaagent:<Your Path>\application-insights\applicationinsights-agent-3.4.15.jar"
       ```
 
       ![image-20230804133404668](https://s2.loli.net/2023/08/04/wei2nmpFq6XgEx7.png)
 
 6. Start JBoss
    1. Run cmd console in the `bin` direcotry, and run `standalone.bat`
+   
+      You should see the **JAVA_OPTS** contains `applicationinsights-agent-3.4.15.jar`.
+   
+      ![](..\Resources\JBoss\run_standalone_bat.jpg)
    
 7. Check metrics in Application Insights Portal
    1. You should be able to status like below in the Application Insights Portal.
