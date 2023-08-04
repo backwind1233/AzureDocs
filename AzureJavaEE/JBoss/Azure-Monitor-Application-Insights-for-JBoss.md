@@ -55,7 +55,7 @@
    1. You should be able to status like below in the Application Insights Portal.
       1. ![](https://s2.loli.net/2023/08/04/nkcTMft2xZH86F5.png)
 
-## Azure Application Insights with JBoss On Linux
+## Azure Application Insights with JBoss On Linux(TBD)
 
 
 
