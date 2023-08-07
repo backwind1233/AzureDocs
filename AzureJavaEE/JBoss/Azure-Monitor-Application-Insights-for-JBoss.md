@@ -42,7 +42,7 @@
 
    1. Get into the `bin` directory where the JBoss installed.  
 
-      <img src="https://s2.loli.net/2023/08/04/kBdApyNbPo4mC9Z.png" alt="图片描述" height="600" style="float: left;" >
+      ![standalone-config.jpg](..%2FResources%2FJBoss%2Fstandalone-config.jpg)
 
    2. Add below configuration to the end of the `standalone.conf.bat`file.  
    
