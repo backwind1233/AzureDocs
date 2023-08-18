@@ -4,7 +4,7 @@ This is a simple guide to demonstrate how to integrate KeyVault JCA provider wit
 
 ## Pre-requisites
 1. Prepare a certificate in Azure KeyVault.
-1. Prepare a service principal
+1. Prepare a service principal.
 1. Assign the principal with read and write permissoins of the KeyVault.
 
 ## Steps
@@ -21,15 +21,17 @@ This is a simple guide to demonstrate how to integrate KeyVault JCA provider wit
 1. Sign with jarsigner
     1. Try to sign the jar using below command
         ```bash
-        jarsigner -keystore NONE -storetype AzureKeyVault -signedjar signerjar.jar ${replace_with_your_jar.jar} ${replace_with_certificate} -verbose  -storepass "" \
-        -providerName AzureKeyVault \
-        -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider \
-        -J-Dazure.keyvault.uri=${replace_with_your_kv_uri} \
-        -J-Dazure.keyvault.tenant-id=${replace_with_your_sp_tenant-id} \
-        -J-Dazure.keyvault.client-id=${replace_with_your_sp_client-id} \
-        -J-Dazure.keyvault.client-secret=${replace_with_your_sp_client-secret} 
+        jarsigner   -keystore NONE -storetype AzureKeyVault \
+                    -signedjar signerjar.jar ${replace_with_your_jar.jar} ${replace_with_certificate} \
+                    -verbose  -storepass "" \
+                    -providerName AzureKeyVault \
+                    -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider \
+                    -J-Dazure.keyvault.uri=${replace_with_your_kv_uri} \
+                    -J-Dazure.keyvault.tenant-id=${replace_with_your_sp_tenant-id} \
+                    -J-Dazure.keyvault.client-id=${replace_with_your_sp_client-id} \
+                    -J-Dazure.keyvault.client-secret=${replace_with_your_sp_client-secret} 
         ```
-    1. The output should look like this
+    1. The output may look like this
         - ![Alt text](../Ressources/JCA/output_1.png)
         - ![Alt text](../Ressources/JCA/output_2.png)
 
