@@ -7,6 +7,7 @@ This is a simple guide to demonstrate how to integrate KeyVault JCA provider wit
 1. Prepare a certificate in Azure KeyVault.
 1. Prepare a service principal.
 1. Assign the principal with read and write permissoins of the KeyVault.
+2. Jarsigner supported Algorithms: ** DSA, RSA, ECDSA **.
 
 ## Steps
 
@@ -35,4 +36,7 @@ This is a simple guide to demonstrate how to integrate KeyVault JCA provider wit
     1. The output may look like this
         - ![Alt text](../Ressources/JCA/output_1.png)
         - ![Alt text](../Ressources/JCA/output_2.png)
+      
+## Refs
+- https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jarsigner.html
 
