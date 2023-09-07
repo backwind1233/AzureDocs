@@ -13,9 +13,9 @@ This is a simple guide to demonstrate how to integrate KeyVault JCA provider wit
 
 1. Config JCA provider jar
     1. Download azure-security-keyvault-jca from maven [repository](https://mvnrepository.com/artifact/com.azure/azure-security-keyvault-jca)
-    1. Place the jar under the folder `${JAVA_HOME/jre/lib/ext}`
+    1. Place the jar under the folder `${JAVA_HOME}/jre/lib/ext`
         - ![Alt text](../Ressources/JCA/place_jar.png)
-    1. Open the file `java.security` in `${JAVA_HOME/jre/lib/security}`
+    1. Open the file `java.security` in `${JAVA_HOME}/jre/lib/security`
         - ![Alt text](../Ressources/JCA/java_security.png)
     1. Edit the file `java.security` 
         1. Add `security.provider.${Input_Your_Number}=com.azure.security.keyvault.jca.KeyVaultJcaProvider` as the picture shows.
