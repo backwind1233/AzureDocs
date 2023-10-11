@@ -7,7 +7,7 @@
   * [Step4. Verify](#step4-verify)
   * [Delete Resources](#delete-resources)
 
-# Verify Initcontainer Running as Non-root Has Write Permisson on PV in Aks with NFS
+# Verify Permissons on PV in Aks with SMB
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ Check the [prerequisites](https://oracle.github.io/weblogic-kubernetes-operator/
     ```bash
     # Change these parameters as needed for your own environment
     # Specify a prefix to name resources, only allow lowercase letters and numbers, between 1 and 7 characters
-    export NAME_PREFIX=nfs
+    export NAME_PREFIX=smb
     # Used to generate resource names.
     export TIMESTAMP=`date +%s`
     export AKS_CLUSTER_NAME="${NAME_PREFIX}aks${TIMESTAMP}"
@@ -47,21 +47,27 @@ Check the [prerequisites](https://oracle.github.io/weblogic-kubernetes-operator/
 ## Step2. Create storage class
 
 ```bash
-cat > azurefile-csi-nfs.yaml <<EOF
+cat > azurefile-csi-smb.yaml <<EOF
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: azurefile-csi-nfs
+  name: azurefile-csi-smb
 provisioner: file.csi.azure.com
 allowVolumeExpansion: true
 parameters:
-  protocol: nfs
+  protocol: smb
 mountOptions:
-  - nconnect=4
+ - dir_mode=0777
+ - file_mode=0777
+ - uid=0
+ - gid=0
+ - mfsymlinks
+ - nobrl
+ - cache=none
 EOF
 
 
-kubectl apply -f azurefile-csi-nfs.yaml
+kubectl apply -f azurefile-csi-smb.yaml
 ```
 
 
@@ -76,7 +82,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: azurefile-csi-nfs
+  storageClassName: azurefile-csi-smb
   resources:
     requests:
       storage: 100Gi
@@ -145,13 +151,13 @@ kubectl apply -f pv-test.yaml
     ```
 2.  Update and run below command
     ```bash
-    
-        kubectl exec -it $(kubectl get pods -o=jsonpath='{.items[0].metadata.name}') -- /bin/sh
+
+    kubectl exec -it $(kubectl get pods -o=jsonpath='{.items[0].metadata.name}') -- /bin/sh
 
     ```
 3.  Run command `ls -alh /data`
     -   **Mark-1**: the folder is created by non-root
-    ![](../Resources/Weblogic/image_2Gqg8eSO6u.png)
+    ![](../Resources/Weblogic/img_skejfkk09g.png)
 
 
 ## Delete Resources
