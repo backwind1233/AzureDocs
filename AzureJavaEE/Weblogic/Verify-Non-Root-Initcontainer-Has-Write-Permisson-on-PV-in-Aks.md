@@ -40,10 +40,9 @@ Check the [prerequisites](https://oracle.github.io/weblogic-kubernetes-operator/
     ```
 
 - Connect to aks cluster
-
-      ```bash
-      az aks get-credentials --resource-group $AKS_PERS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME
-      ```
+    ```bash
+    az aks get-credentials --resource-group $AKS_PERS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME
+    ```
 
 ## Step2. Create storage class
 
