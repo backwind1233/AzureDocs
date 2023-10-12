@@ -122,7 +122,7 @@ spec:
         - /bin/sh
         - -c
         - |
-          adduser -D nonroot && 
+          adduser --disabled-password nonroot && 
           su - nonroot -c "mkdir -p /data/nonroot-test"
         volumeMounts:
         - mountPath: /data
@@ -150,7 +150,10 @@ kubectl apply -f pv-test.yaml
 
     ```
 3.  Run command `ls -alh /data`
-    -   **Mark-1**: the folder is created by non-root
+    ```bash
+    ls -alh /data
+    ```
+    -   **Mark-1**: the folder is created by non-root  
     ![](../Resources/Weblogic/image_2Gqg8eSO6u.png)
 
 
