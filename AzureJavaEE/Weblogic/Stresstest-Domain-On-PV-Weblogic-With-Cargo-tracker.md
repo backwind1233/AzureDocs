@@ -1,6 +1,6 @@
 # Stress test Domain on pv with smb
 
-# How I did the tests.
+# How I did the tests
 
 ## Prepare Test Environment
 
@@ -113,7 +113,7 @@
 
 ### Test Results
 
-JDK17 + Equtiable-smb + Weblogic_14.1.1.0
+**JDK17 + Equtiable-smb + Weblogic_14.1.1.0**
 
 1. Deploy with Web Console
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
@@ -122,11 +122,13 @@ JDK17 + Equtiable-smb + Weblogic_14.1.1.0
 3. Deploy with WLST.
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 
-JDK11 + Equtiable-smb + Weblogic_14.1.1.0
+**JDK11 + Equtiable-smb + Weblogic_14.1.1.0**
 
 1. Deploy with Web Console
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 2. Deploy with commandline.
     1. ✅Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 
-JDK8 + Equtiable-smb + Weblogic_12.2.1.4
+**JDK8 + Equtiable-smb + Weblogic_12.2.1.4**
+3. Deploy with WLST.
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
