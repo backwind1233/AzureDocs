@@ -4,8 +4,8 @@
 
 ## Prepare Test Environment
 
-1. Use the workflow to prepare a postgresql server.
-2. Use the workflow to prepare a weblogic server.
+1. Use the [workflow](https://github.com/backwind1233/AzureJavaEEWorkflows/blob/main/.github/workflows/postgresql-provision.yaml) to prepare a postgresql server.
+2. Use the [workflow](https://github.com/backwind1233/AzureJavaEEWorkflows/blob/main/.github/workflows/Java17-oracal-wko-automation-storage.yaml) to prepare a weblogic server.
 
    You should be able to see logs like below:
 
@@ -51,6 +51,7 @@
 
 
 ### Deploy with Web Console
+- Skip
 
 ### Deploy with commandline
 
@@ -84,19 +85,48 @@
 
       ![img_6.png](./img_6.png)
 
+### Deploy with WLST
+- SSH to domain server
+    - Copy the ssh command in `Setup tmate session for github debugging` and run in local terminal.
+
+      ![img_4.png](./img_4.png)
+
+    - Run `kubectl exec -it domain1-admin-server -- /bin/sh` to get into the admin server.
+
+      ![img_5.png](./img_5.png)
+    
+- Run below command to start wlst.sh and connect to admin server
+    ```shell
+    bash  /u01/oracle/oracle_common/common/bin/wlst.sh
+    # Connect
+    connect('weblogic', '${password}', 't3://localhost:7001')
+    ```
+
+- Run below command to deploy/undeploy cargo-tracker several times and check the result
+    ```shell
+    # deploy cargo-tracker
+    deploy('cargo-tracker','${cargo_tracker_war_path}','cluster-1', upload='true')
+    
+    ```
+
+
 
 ### Test Results
 
-JDK17 + Equtiable-smb + Weblogic
+JDK17 + Equtiable-smb + Weblogic_14.1.1.0
 
 1. Deploy with Web Console
-    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 2. Deploy with commandline.
-    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+3. Deploy with WLST.
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 
-JDK11 + Equtiable-smb + Weblogic
+JDK11 + Equtiable-smb + Weblogic_14.1.1.0
 
 1. Deploy with Web Console
-    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 2. Deploy with commandline.
-    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+    1. ✅Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+
+JDK8 + Equtiable-smb + Weblogic_12.2.1.4
