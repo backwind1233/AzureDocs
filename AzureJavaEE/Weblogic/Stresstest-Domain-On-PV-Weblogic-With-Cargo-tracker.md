@@ -117,18 +117,19 @@
 
 1. Deploy with Web Console
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
-2. Deploy with commandline.
+2. Deploy with Commandline
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
-3. Deploy with WLST.
+3. Deploy with WLST
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 
 **JDK11 + Equtiable-smb + Weblogic_14.1.1.0**
 
 1. Deploy with Web Console
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
-2. Deploy with commandline.
+2. Deploy with Commandline
     1. ✅Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
 
 **JDK8 + Equtiable-smb + Weblogic_12.2.1.4**
-3. Deploy with WLST.
+
+4. Deploy with WLST  
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
