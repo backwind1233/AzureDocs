@@ -131,5 +131,5 @@
 
 **JDK8 + Equtiable-smb + Weblogic_12.2.1.4**
 
-4. Deploy with WLST  
+1. Deploy with WLST  
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
