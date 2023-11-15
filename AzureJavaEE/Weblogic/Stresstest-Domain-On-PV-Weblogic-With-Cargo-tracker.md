@@ -138,3 +138,28 @@
 
 
 #### NFS
+
+
+
+
+## Useful commands
+
+```shell
+# Display the filesystem type.
+# To check whether it is NFS or SMB
+df -Th /<mount-point>
+
+```
+
+An example output the commmand:
+
+```shell
+sh-4.2$ df -Th /shared
+Filesystem                                                                               Type  Size  Used Avail Use% Mounted on
+wlsstorage6543838852.file.core.windows.net:/wlsstorage6543838852/wls-weblogic-6543838852 nfs4  100G   99M  100G   1% /shared
+```
+
+```shell
+# Check Event Logs
+kubectl get events --sort-by='.metadata.creationTimestamp’
+```
