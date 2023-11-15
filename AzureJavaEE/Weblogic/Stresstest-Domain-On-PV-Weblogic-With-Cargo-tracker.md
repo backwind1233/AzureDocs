@@ -1,4 +1,4 @@
-# Stress test Domain on pv with smb
+# Stress test Domain on pv with SMB/NFS
 
 # How I did the tests
 
@@ -113,6 +113,8 @@
 
 ### Test Results
 
+#### SMB  
+
 **JDK17 + Equtiable-smb + Weblogic_14.1.1.0**
 
 1. Deploy with Web Console
@@ -133,3 +135,6 @@
 
 1. Deploy with WLST  
     1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+
+
+#### NFS
