@@ -4,8 +4,8 @@
 
 ## Prepare Test Environment
 
-1. Use the [workflow](https://github.com/backwind1233/AzureJavaEEWorkflows/blob/main/.github/workflows/postgresql-provision.yaml) to prepare a postgresql server.
-2. Use the [workflow](https://github.com/backwind1233/AzureJavaEEWorkflows/blob/main/.github/workflows/Java17-oracal-wko-automation-storage.yaml) to prepare a weblogic server.
+1. Use the [workflow](https://github.com/azure-javaee/azure-javaee-iaas-workflows/blob/0812a119e0e7f641d03f9551fcda9935602d5489/.github/workflows/azure-resource-provision-postgresql.yaml) to prepare a postgresql server.
+2. Use the [workflow](https://github.com/azure-javaee/azure-javaee-iaas-workflows/blob/0812a119e0e7f641d03f9551fcda9935602d5489/.github/workflows/weblogic-java17-oracal-wko-automation-storage.yaml) to prepare a weblogic server.
 
    You should be able to see logs like below:
 
@@ -139,7 +139,26 @@
 
 #### NFS
 
+**JDK17 + NSF + Weblogic_14.1.1.0**
 
+1. Deploy with Web Console
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+2. Deploy with WLST
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+
+**JDK11 + NSF + Weblogic_14.1.1.0**
+
+1. Deploy with Web Console
+    1. ✅ Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+2. Deploy with WLST
+    1. ✅Manually Deploy and Undeploy cargo-tracker a few times and check the accessibility.
+
+**JDK8 + NSF + Weblogic_12.2.1.4**
+
+1. Deploy with Web Console
+    1. ✅ Manually Deploy and Undeploy testwebapp a few times and check the accessibility.
+2. Deploy with WLST
+    1. ✅ Manually Deploy and Undeploy testwebapp a few times and check the accessibility.
 
 
 ## Useful commands
