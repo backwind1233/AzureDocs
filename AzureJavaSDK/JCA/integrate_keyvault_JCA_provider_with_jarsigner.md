@@ -3,17 +3,66 @@
 
 This guide provides a straightforward approach to integrating the KeyVault JCA provider with Jarsigner, ensuring a seamless process for users.
 
-## Pre-requisites
+## Prerequisites
 Before beginning, ensure you have the following:
 
-1. **Certificate in Azure KeyVault**: Prepare a certificate in Azure KeyVault.
-2. **Service Principal**: Create a service principal.
-3. **Permissions**: Assign the principal with read and write permissions for the KeyVault.
-4. **Jarsigner Supported Algorithms**: Ensure you are using one of the following supported algorithms: DSA, RSA, or ECDSA.
+- An Azure subscription - [create one for free](https://azure.microsoft.com/free).
+- [Java Development Kit (JDK)](/java/azure/jdk/) version 8 or higher.
+- [Azure CLI](/cli/azure/install-azure-cli)
+- **Jarsigner Supported Algorithms**: Ensure you are using one of the following supported algorithms: DSA, RSA, or ECDSA.
 
 ## Step-by-Step Guide
 
 Follow these steps carefully to achieve successful integration:
+
+
+1. Create a resource group
+
+```shell
+az group create --name "myResourceGroup" --location "EastUS"
+```
+
+2. Create a key vault
+
+```shell
+az keyvault create --name "<your-unique-keyvault-name>" --resource-group "myResourceGroup" --location "EastUS"
+```
+
+3. Get the key vault uri
+```shell
+az keyvault show --name <your-unique-keyvault-name> --query "properties.vaultUri" --resource-group "myResourceGroup" -o tsv
+```
+Note the output as kv_uri for later use.
+
+3. Add a certificate to Key Vault
+
+az keyvault certificate create --vault-name "<your-unique-keyvault-name>" -n JarsignerCertificate -p "$(az keyvault certificate get-default-policy)"
+
+5. Create a Service Principal
+
+```shell
+az ad sp create-for-rbac --name "jarsigner_sp"
+```
+Note the appId and password from the output; you'll need them later.
+
+6. Get the objectId
+
+```shell
+az ad sp show --id <appId> --query id -o tsv
+```
+Replace <appId> with the appId from the previous step.
+
+7. Assign Permissions to Service Principal:
+
+```shell
+az keyvault set-policy --name <your-unique-keyvault-name> --spn <objectId> --secret-permissions get list
+
+az keyvault set-policy --name <your-unique-keyvault-name> --spn <objectId> --secret-permissions set delete
+
+```
+Replace <objectId> with the output from previous step.
+
+
 
 ### Step 1: Configure JCA Provider Jar
 
