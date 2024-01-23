@@ -22,7 +22,7 @@ RESOURCE_GROUP_NAME=jarsigner-rg-$DATE_STRING
 KEYVAULT_NAME=jarsiner-kv-$DATE_STRING
 SERVICE_PRINCIPAL_NAME=jarsiner-sp-$DATE_STRING
 ```
-2Create a resource group
+2. Create a resource group
 
 ```shell
 az group create --name $RESOURCE_GROUP_NAME --location "EastUS"
@@ -52,7 +52,7 @@ az keyvault certificate create --vault-name $KEYVAULT_NAME -n JarsignerCertifica
 ```shell
 az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME
 ```
-Note the appId and password from the output; you'll need them later.
+Note the appId and password from the output, you'll need them later.
 
 7. Get the objectId
 
@@ -64,10 +64,9 @@ objectId=$(az ad sp show --id $appId --query id -o tsv)
 7. Assign Permissions to Service Principal:
 
 ```shell
-az keyvault set-policy --name $KEYVAULT_NAME --spn $objectId --secret-permissions get list
+az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $objectId --secret-permissions get list
 
-az keyvault set-policy --name $KEYVAULT_NAME --spn $objectId --secret-permissions set delete
-
+az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $objectId --secret-permissions set delete
 ```
 
 
