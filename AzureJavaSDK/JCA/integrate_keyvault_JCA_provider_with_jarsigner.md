@@ -9,59 +9,68 @@ Before beginning, ensure you have the following:
 - An Azure subscription - [create one for free](https://azure.microsoft.com/free).
 - [Java Development Kit (JDK)](/java/azure/jdk/) version 8 or higher.
 - [Azure CLI](/cli/azure/install-azure-cli)
-- **Jarsigner Supported Algorithms**: Ensure you are using one of the following supported algorithms: DSA, RSA, or ECDSA.
+- Ensure you are using one of the following supported algorithms: DSA, RSA, or ECDSA.
 
 ## Step-by-Step Guide
 
 Follow these steps carefully to achieve successful integration:
 
+1. Prepare your parameters
+```shell
+DATE_STRING=$(date +%H%M%S)
+RESOURCE_GROUP_NAME=jarsigner-rg-$date_string
+KEYVAULT_NAME=jarsiner-kv-$date_string
+SERVICE_PRINCIPAL_NAME=jarsiner-sp-$date_string
 
-1. Create a resource group
+
+```
+2Create a resource group
 
 ```shell
 az group create --name "myResourceGroup" --location "EastUS"
 ```
 
-2. Create a key vault
+3. Create a key vault
 
 ```shell
-az keyvault create --name "<your-unique-keyvault-name>" --resource-group "myResourceGroup" --location "EastUS"
+az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "EastUS"
 ```
 
-3. Get the key vault uri
+4. Get the key vault uri
+
 ```shell
-az keyvault show --name <your-unique-keyvault-name> --query "properties.vaultUri" --resource-group "myResourceGroup" -o tsv
+az keyvault show --name $KEYVAULT_NAME --query "properties.vaultUri" --resource-group $RESOURCE_GROUP_NAME -o tsv
 ```
 Note the output as kv_uri for later use.
 
-3. Add a certificate to Key Vault
-
-az keyvault certificate create --vault-name "<your-unique-keyvault-name>" -n JarsignerCertificate -p "$(az keyvault certificate get-default-policy)"
-
-5. Create a Service Principal
+5. Add a certificate to Key Vault
 
 ```shell
-az ad sp create-for-rbac --name "jarsigner_sp"
+az keyvault certificate create --vault-name $KEYVAULT_NAME -n JarsignerCertificate -p "$(az keyvault certificate get-default-policy)"
+```
+
+6. Create a Service Principal
+
+```shell
+az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME
 ```
 Note the appId and password from the output; you'll need them later.
 
-6. Get the objectId
+7. Get the objectId
 
 ```shell
-az ad sp show --id <appId> --query id -o tsv
+appId=$(az ad sp list --display-name $SERVICE_PRINCIPAL_NAME --query "[].appId" --output tsv)
+objectId=$(az ad sp show --id $appId --query id -o tsv)
 ```
-Replace <appId> with the appId from the previous step.
 
 7. Assign Permissions to Service Principal:
 
 ```shell
-az keyvault set-policy --name <your-unique-keyvault-name> --spn <objectId> --secret-permissions get list
+az keyvault set-policy --name $KEYVAULT_NAME --spn $objectId --secret-permissions get list
 
-az keyvault set-policy --name <your-unique-keyvault-name> --spn <objectId> --secret-permissions set delete
+az keyvault set-policy --name $KEYVAULT_NAME --spn $objectId --secret-permissions set delete
 
 ```
-Replace <objectId> with the output from previous step.
-
 
 
 ### Step 1: Configure JCA Provider Jar
