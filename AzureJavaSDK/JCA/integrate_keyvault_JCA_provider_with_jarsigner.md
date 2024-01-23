@@ -25,7 +25,7 @@ SERVICE_PRINCIPAL_NAME=jarsiner-sp-$date_string
 2Create a resource group
 
 ```shell
-az group create --name "myResourceGroup" --location "EastUS"
+az group create --name $RESOURCE_GROUP_NAME --location "EastUS"
 ```
 
 3. Create a key vault
