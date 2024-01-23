@@ -21,8 +21,6 @@ DATE_STRING=$(date +%H%M%S)
 RESOURCE_GROUP_NAME=jarsigner-rg-$date_string
 KEYVAULT_NAME=jarsiner-kv-$date_string
 SERVICE_PRINCIPAL_NAME=jarsiner-sp-$date_string
-
-
 ```
 2Create a resource group
 
