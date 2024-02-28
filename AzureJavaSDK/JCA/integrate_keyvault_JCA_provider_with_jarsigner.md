@@ -57,16 +57,16 @@ Note the appId and password from the output, you'll need them later.
 7. Get the objectId
 
 ```shell
-appId=$(az ad sp list --display-name $SERVICE_PRINCIPAL_NAME --query "[].appId" --output tsv)
-objectId=$(az ad sp show --id $appId --query id -o tsv)
+appId=$(az ad sp list --display-name $SERVICE_PRINCIPAL_NAME --query "[].appId" --output tsv | tr -d '\r\n')
+objectId=$(az ad app show --id "$appId" --query id -o tsv | tr -d '\r\n')
 ```
 
 7. Assign Permissions to Service Principal:
 
 ```shell
-az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $objectId --secret-permissions get list
+az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $objectId --secret-permissions get 
 
-az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $objectId --secret-permissions set delete
+az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $objectId --certificate-permissions get list
 ```
 
 
