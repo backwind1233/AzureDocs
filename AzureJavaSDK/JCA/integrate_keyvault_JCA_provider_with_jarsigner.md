@@ -77,16 +77,6 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
     1. Place the jar under the folder `${JAVA_HOME}/jre/lib/ext`
         - ![Alt text](../Ressources/JCA/place_jar.png)
 
-### Step 2: Set Up Environment Variables
-
-Modify the `java.security` file in your Java installation to include the KeyVault JCA provider.
-
-1. Open the file `java.security` in `${JAVA_HOME}/jre/lib/security`
-   - ![Alt text](../Ressources/JCA/java_security.png)
-1. Edit the file `java.security`
-    1. Add `security.provider.${Input_Your_Number}=com.azure.security.keyvault.jca.KeyVaultJcaProvider` as the picture shows.
-    1. ![Alt text](../Ressources/JCA/edit_provider.png)
-
 ### Step 3: Sign with Jarsigner
 
 1. **Prepare Your Jar**: Have the jar file you wish to sign ready.
