@@ -58,7 +58,7 @@ Note the appId and password from the output, you'll need them later.
 
 ```shell
 appId=$(az ad sp list --display-name $SERVICE_PRINCIPAL_NAME --query "[].appId" --output tsv | tr -d '\r\n')
-objectId=$(az ad app show --id "$appId" --query id -o tsv | tr -d '\r\n')
+objectId=$(az ad sp show --id "$appId" --query id -o tsv | tr -d '\r\n')
 ```
 
 7. Assign Permissions to Service Principal:
