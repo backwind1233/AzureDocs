@@ -1,7 +1,7 @@
 <!-- Refer to https://github.com/Azure/azure-sdk-for-java/issues/35677  -->
 # Integrate KeyVault JCA provider with Jarsigner
 
-This guide provides a straightforward approach to integrating the KeyVault JCA provider with Jarsigner, ensuring a seamless process for users.
+This guide provides a straightforward approach to integrating the KeyVault JCA provider with [Jarsigner](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jarsigner.html), ensuring a seamless process for users.
 
 ## Prerequisites
 Before beginning, ensure you have the following:
@@ -152,7 +152,4 @@ To avoid Azure charges, you should clean up unnecessary resources.
 az group delete --name $RESOURCE_GROUP_NAME --yes --no-wait
 az ad app delete --id $CLIENT_ID
 ```
-
-## Refs
-- https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jarsigner.html
 
