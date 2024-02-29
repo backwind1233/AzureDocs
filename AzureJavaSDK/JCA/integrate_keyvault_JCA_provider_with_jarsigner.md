@@ -119,7 +119,7 @@ To avoid Azure charges, you should clean up unnecessary resources.
 
 ```shell
 az group delete --name $RESOURCE_GROUP_NAME --yes --no-wait
-az ad sp delete --id $CLIENT_ID
+az ad app delete --id $CLIENT_ID
 ```
 
 ## Refs
