@@ -14,10 +14,10 @@ Before beginning, ensure you have the following:
 
 ### Step 1: Download and Configure JCA Provider Jar
 
-1. **Download the JCA Provider Jar**: Obtain the JCA provider jar file from the [official](https://mvnrepository.com/artifact/com.azure/azure-security-keyvault-jca) source.
+1. Download the [JCA](https://repo1.maven.org/maven2/com/azure/azure-security-keyvault-jca/2.8.1/azure-security-keyvault-jca-2.8.1.jar) Provider Jar.
 2. If you are using Java8, you need to add the JCA provider jar to the class path.
     1. Place the jar under the folder `${JAVA_HOME}/jre/lib/ext`
-        - ![Alt text](../Ressources/JCA/place_jar.png)
+        - ![img.jpg](../Ressources/JCA/place_jar.jpg)
 3. If you are using Java9 or higher, just place the jar in a folder that jarsigner can access.
         
 ## Step 2: Prepare Azure Resources
@@ -81,7 +81,7 @@ OBJECTID=$(az ad sp show --id "$CLIENT_ID" --query id -o tsv | tr -d '\r\n')
 echo $OBJECTID
 ```
 
-7. Assign Permissions to Service Principal:
+8. Assign Permissions to Service Principal:
 
 ```shell
 az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $OBJECTID --secret-permissions get 
@@ -94,14 +94,17 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
 
 1. **Prepare Your Jar**: Have the jar file you wish to sign ready.
 2. **Execute Jarsigner**: Use the Jarsigner tool with the KeyVault JCA provider to sign your jar file.  
-    You need to update the parameters with the actuall values.  
-    - **PARAM_JAR_FILE_PATH**: The path to your jar file you wish to sign.  
-    - **PARAM_JCA_PROVIDER_JAR_PATH**: The path to the jca provider jar file. 
+    You need to update the parameters with the actuall values.   
+
+    | Parameter | Description |Example|
+    |---|---|---|
+    | **PARAM_YOUR_JAR_FILE_PATH** | The path to your jar file you wish to sign. | /path/to/your/jarfile.jar |
+    | **PARAM_JCA_PROVIDER_JAR_PATH** | The path to the jca provider jar file. | /path/to/your/azure-security-keyvault-jca-2.8.1.jar |
 
     1. If you are using Java8, try to sign the jar using below command
          ```bash
          jarsigner   -keystore NONE -storetype AzureKeyVault \
-                     -signedjar signerjar.jar ${YOUR_JAR_FILE_PATH} "${CERT_NAME}" \
+                     -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" \
                      -verbose  -storepass "" \
                      -providerName AzureKeyVault \
                      -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider \
@@ -126,15 +129,17 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
                      -J-Dazure.keyvault.client-secret=${CLIENT_SECRET}
          ```
 3. Check your output, the output may look like this
-    - ![Alt text](../Ressources/JCA/output_1.png)
-    - ![Alt text](../Ressources/JCA/output_2.png)
+    - ![Alt text](../Ressources/JCA/sign_1.jpg)
+    - ![Alt text](../Ressources/JCA/sign_2.jpg)
 
 
 ### Step 4: Verify with Jarsigner
-
+You can verify the signed jar using the following Jarsigner command.
 ```bash
 jarsigner -verify -verbose -certs signerjar.jar
 ```
+The output may look like this
+![Alt text](../Ressources/JCA/verify_1.jpg)
 
 ## Conclusion
 
