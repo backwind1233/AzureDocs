@@ -9,9 +9,18 @@ Before beginning, ensure you have the following:
 - An Azure subscription - [create one for free](https://azure.microsoft.com/free).
 - [Java Development Kit (JDK)](/java/azure/jdk/) version 8 or higher.
 - [Azure CLI](/cli/azure/install-azure-cli)
+- [jq](https://stedolan.github.io/jq/download/) - a lightweight and flexible command-line JSON processor.
 - Ensure you are using one of the following supported algorithms: DSA, RSA, or ECDSA.
 
-## Step-by-Step Guide
+### Step 1: Download and Configure JCA Provider Jar
+
+1. **Download the JCA Provider Jar**: Obtain the JCA provider jar file from the [official](https://mvnrepository.com/artifact/com.azure/azure-security-keyvault-jca) source.
+2. If you are using Java8, you need to add the JCA provider jar to the class path.
+    1. Place the jar under the folder `${JAVA_HOME}/jre/lib/ext`
+        - ![Alt text](../Ressources/JCA/place_jar.png)
+3. If you are using Java9 or higher, just place the jar in a folder that jarsigner can access.
+        
+## Step 2: Prepare Azure Resources
 
 Follow these steps carefully to achieve successful integration:
 
@@ -81,18 +90,23 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
 ```
 
 
-### Step 1: Configure JCA Provider Jar
-
-1. **Download the JCA Provider Jar**: Obtain the JCA provider jar file from the [official](https://mvnrepository.com/artifact/com.azure/azure-security-keyvault-jca) source.
-2. **Add to Java Environment**: 
-    1. Place the jar under the folder `${JAVA_HOME}/jre/lib/ext`
-        - ![Alt text](../Ressources/JCA/place_jar.png)
-
 ### Step 2: Sign with Jarsigner
 
 1. **Prepare Your Jar**: Have the jar file you wish to sign ready.
 2. **Execute Jarsigner**: Use the Jarsigner tool with the KeyVault JCA provider to sign your jar file.
-    1. Try to sign the jar using below command
+    1. If you are using Java8, try to sign the jar using below command
+         ```bash
+         jarsigner   -keystore NONE -storetype AzureKeyVault \
+                     -signedjar signerjar.jar demo.jar "${CERT_NAME}" \
+                     -verbose  -storepass "" \
+                     -providerName AzureKeyVault \
+                     -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider \
+                     -J-Dazure.keyvault.uri=${KEYVAULT_URL} \
+                     -J-Dazure.keyvault.tenant-id=${TENANT} \
+                     -J-Dazure.keyvault.client-id=${CLIENT_ID} \
+                     -J-Dazure.keyvault.client-secret=${CLIENT_SECRET}
+         ```
+    2. If you are using Java9 or higher, try to sign the jar using below command
          ```bash
          jarsigner   -keystore NONE -storetype AzureKeyVault \
                      -signedjar signerjar.jar demo.jar "${CERT_NAME}" \
@@ -104,11 +118,11 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
                      -J-Dazure.keyvault.uri=${KEYVAULT_URL} \
                      -J-Dazure.keyvault.tenant-id=${TENANT} \
                      -J-Dazure.keyvault.client-id=${CLIENT_ID} \
-                     -J-Dazure.keyvault.client-secret=${CLIENT_SECRET} 
+                     -J-Dazure.keyvault.client-secret=${CLIENT_SECRET}
          ```
-    1. The output may look like this
-        - ![Alt text](../Ressources/JCA/output_1.png)
-        - ![Alt text](../Ressources/JCA/output_2.png)
+3. Check your output, the output may look like this
+    - ![Alt text](../Ressources/JCA/output_1.png)
+    - ![Alt text](../Ressources/JCA/output_2.png)
 
 ## Conclusion
 
