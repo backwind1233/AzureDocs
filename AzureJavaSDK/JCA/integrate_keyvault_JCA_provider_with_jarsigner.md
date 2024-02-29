@@ -90,14 +90,18 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
 ```
 
 
-### Step 2: Sign with Jarsigner
+### Step 3: Sign with Jarsigner
 
 1. **Prepare Your Jar**: Have the jar file you wish to sign ready.
-2. **Execute Jarsigner**: Use the Jarsigner tool with the KeyVault JCA provider to sign your jar file.
+2. **Execute Jarsigner**: Use the Jarsigner tool with the KeyVault JCA provider to sign your jar file.  
+    You need to update the parameters with the actuall values.  
+    - **PARAM_JAR_FILE_PATH**: The path to your jar file you wish to sign.  
+    - **PARAM_JCA_PROVIDER_JAR_PATH**: The path to the jca provider jar file. 
+
     1. If you are using Java8, try to sign the jar using below command
          ```bash
          jarsigner   -keystore NONE -storetype AzureKeyVault \
-                     -signedjar signerjar.jar demo.jar "${CERT_NAME}" \
+                     -signedjar signerjar.jar ${YOUR_JAR_FILE_PATH} "${CERT_NAME}" \
                      -verbose  -storepass "" \
                      -providerName AzureKeyVault \
                      -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider \
@@ -106,14 +110,15 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
                      -J-Dazure.keyvault.client-id=${CLIENT_ID} \
                      -J-Dazure.keyvault.client-secret=${CLIENT_SECRET}
          ```
+
     2. If you are using Java9 or higher, try to sign the jar using below command
          ```bash
          jarsigner   -keystore NONE -storetype AzureKeyVault \
-                     -signedjar signerjar.jar demo.jar "${CERT_NAME}" \
+                     -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" \
                      -verbose  -storepass "" \
                      -providerName AzureKeyVault \
                      -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider \
-                     -J--module-path="kvjca.jar" \
+                     -J--module-path="${PARAM_JCA_PROVIDER_JAR_PATH}" \
                      -J--add-modules="com.azure.security.keyvault.jca" \
                      -J-Dazure.keyvault.uri=${KEYVAULT_URL} \
                      -J-Dazure.keyvault.tenant-id=${TENANT} \
@@ -123,6 +128,13 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
 3. Check your output, the output may look like this
     - ![Alt text](../Ressources/JCA/output_1.png)
     - ![Alt text](../Ressources/JCA/output_2.png)
+
+
+### Step 4: Verify with Jarsigner
+
+```bash
+jarsigner -verify -verbose -certs signerjar.jar
+```
 
 ## Conclusion
 
