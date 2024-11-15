@@ -63,9 +63,9 @@ $userObjectId= (az ad signed-in-user show --query id -o tsv)
 # $spObjectId = (az ad sp show --id <your-sp-id> --query id -o tsv)
 
 # Assign Key Vault Certificates Officer role
-az role assignment create \
-    --role "Key Vault Certificates Officer" \
-    --assignee $userObjectId \
+az role assignment create `
+    --role "Key Vault Certificates Officer" `
+    --assignee $userObjectId `
     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
 ```
 
