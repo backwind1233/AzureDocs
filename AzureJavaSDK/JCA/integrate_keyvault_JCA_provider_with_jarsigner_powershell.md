@@ -53,7 +53,7 @@ az group create --name $RESOURCE_GROUP_NAME --location "WestUS"
 az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "WestUS"
 ```
 
-4. Assign role to create certificates in the Key Vault.
+4. Assign role to the Key Vault.
 
 ```shell
 # Get your user object ID (if you're using a user account)
@@ -67,6 +67,7 @@ az role assignment create `
     --role "Key Vault Certificates Officer" `
     --assignee $userObjectId `
     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
+    
 ```
 
 5. Get the key vault uri
@@ -105,11 +106,13 @@ $OBJECTID = (az ad sp show --id $CLIENT_ID --query id -o tsv).Trim()
 Write-Host $OBJECTID
 ```
 
-9. Assign Permissions to Service Principal:
+9. Assign Role to Service Principal:
 ```powershell
-az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $OBJECTID --secret-permissions get 
-
-az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $OBJECTID --certificate-permissions get list
+# Assign Key Vault Certificates Officer role
+az role assignment create `
+    --role "Key Vault Secrets Officer" `
+    --assignee $OBJECTID `
+    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
 ```
 
 ### Step 3: Sign with Jarsigner
@@ -140,7 +143,7 @@ az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NA
          ```powershell
          jarsigner -keystore NONE -storetype AzureKeyVault `
                   -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" `
-                  -verbose -storepass "" `
+                  -verbose -storepass '""' ` 
                   -providerName AzureKeyVault `
                   -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider `
                   "-J--module-path=${PARAM_JCA_PROVIDER_JAR_PATH}" `
