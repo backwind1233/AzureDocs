@@ -40,6 +40,7 @@ RESOURCE_GROUP_NAME=jarsigner-rg-$DATE_STRING
 KEYVAULT_NAME=jarsiner-kv-$DATE_STRING
 CERT_NAME=jarsiner-cert-$DATE_STRING
 SERVICE_PRINCIPAL_NAME=jarsiner-sp-$DATE_STRING
+SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 ```
 2. Create a resource group
 
@@ -55,7 +56,7 @@ az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME -
 
 4. Assign role to create certificates in the Key Vault.
 
-```
+```shell
 # Get your user object ID (if you're using a user account)
 userObjectId=$(az ad signed-in-user show --query id -o tsv)
 
