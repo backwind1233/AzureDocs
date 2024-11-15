@@ -136,7 +136,7 @@ az role assignment create `
          ```powershell
          jarsigner -keystore NONE -storetype AzureKeyVault `
                   -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" `
-                  -verbose -storepass "" `
+                  -verbose -storepass '""' `
                   -providerName AzureKeyVault `
                   -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider `
                   "-J-Dazure.keyvault.uri=${KEYVAULT_URL}" `
