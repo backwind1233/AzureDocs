@@ -106,11 +106,17 @@ $OBJECTID = (az ad sp show --id $CLIENT_ID --query id -o tsv).Trim()
 Write-Host $OBJECTID
 ```
 
-9. Assign Role to Service Principal:
+9. Assign Roles to Service Principal:
 ```powershell
-# Assign Key Vault Certificates Officer role
+# Assign Key Vault Secrets Officer role to Service Principal
 az role assignment create `
     --role "Key Vault Secrets Officer" `
+    --assignee $OBJECTID `
+    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
+
+# Assign Key Vault Certificates Officer role Service Principal
+az role assignment create `
+    --role "Key Vault Certificates Officer" `
     --assignee $OBJECTID `
     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
 ```
