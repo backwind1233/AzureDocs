@@ -69,11 +69,7 @@ az role assignment create \
     --assignee $userObjectId \
     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
     
-# Assign Key Vault Certificates Officer role
-az role assignment create \
-    --role "Key Vault Secrets Officer" \
-    --assignee $userObjectId \
-    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
+
 ```
 
 5. Get the key vault uri
@@ -116,9 +112,11 @@ echo $OBJECTID
 9. Assign Permissions to Service Principal:
 
 ```shell
-az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $OBJECTID --secret-permissions get 
+az role assignment create \
+    --role "Key Vault Secrets Officer" \
+    --assignee $OBJECTID \
+    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
 
-az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $OBJECTID --certificate-permissions get list
 ```
 
 
