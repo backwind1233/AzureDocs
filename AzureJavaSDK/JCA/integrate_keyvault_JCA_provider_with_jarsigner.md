@@ -44,16 +44,32 @@ SERVICE_PRINCIPAL_NAME=jarsiner-sp-$DATE_STRING
 2. Create a resource group
 
 ```shell
-az group create --name $RESOURCE_GROUP_NAME --location "EastUS"
+az group create --name $RESOURCE_GROUP_NAME --location "WestUS"
 ```
 
 3. Create a key vault
 
 ```shell
-az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "EastUS"
+az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "WestUS"
 ```
 
-4. Get the key vault uri
+4. Assign role to create certificates in the Key Vault.
+
+```
+# Get your user object ID (if you're using a user account)
+userObjectId=$(az ad signed-in-user show --query id -o tsv)
+
+# Or if you're using a service principal, get its object ID
+# spObjectId=$(az ad sp show --id <your-sp-id> --query id -o tsv)
+
+# Assign Key Vault Certificates Officer role
+az role assignment create \
+    --role "Key Vault Certificates Officer" \
+    --assignee $userObjectId \
+    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
+```
+
+5. Get the key vault uri
 
 ```shell
 KEYVAULT_URL=$(az keyvault show --name $KEYVAULT_NAME --query "properties.vaultUri" --resource-group $RESOURCE_GROUP_NAME -o tsv| tr -d '\r\n')
@@ -61,13 +77,13 @@ echo $KEYVAULT_URL
 ```
 Note the output as kv_uri for later use.
 
-5. Add a certificate to Key Vault
+6. Add a certificate to Key Vault
 
 ```shell
 az keyvault certificate create --vault-name $KEYVAULT_NAME -n $CERT_NAME -p "$(az keyvault certificate get-default-policy)"
 ```
 
-6. Create a Service Principal
+7. Create a Service Principal
 
 ```shell
 SP_JSON=$(az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME)
@@ -83,14 +99,14 @@ echo "TENANT:"$TENANT
 ```
 Note the appId and password from the output, you'll need them later.
 
-7. Get the objectId
+8. Get the objectId
 
 ```shell
 OBJECTID=$(az ad sp show --id "$CLIENT_ID" --query id -o tsv | tr -d '\r\n')
 echo $OBJECTID
 ```
 
-8. Assign Permissions to Service Principal:
+9. Assign Permissions to Service Principal:
 
 ```shell
 az keyvault set-policy --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --object-id $OBJECTID --secret-permissions get 
