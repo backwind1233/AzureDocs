@@ -68,8 +68,6 @@ az role assignment create \
     --role "Key Vault Certificates Officer" \
     --assignee $userObjectId \
     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
-    
-
 ```
 
 5. Get the key vault uri
