@@ -59,15 +59,15 @@ az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME -
 
 ```shell
 # Get your user object ID (if you're using a user account)
-userObjectId=$(az ad signed-in-user show --query id -o tsv)
+USER_OBJECTID=$(az ad signed-in-user show --query id -o tsv)
 
 # Or if you're using a service principal, get its object ID
-# spObjectId=$(az ad sp show --id <your-sp-id> --query id -o tsv)
+# SP_OBJECTID=$(az ad sp show --id <your-sp-id> --query id -o tsv)
 
 # Assign Key Vault Certificates Officer role
 az role assignment create \
     --role "Key Vault Certificates Officer" \
-    --assignee $userObjectId \
+    --assignee $USER_OBJECTID \
     --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.KeyVault/vaults/$KEYVAULT_NAME"
 ```
 
