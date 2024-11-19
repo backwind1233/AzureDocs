@@ -1,4 +1,5 @@
 <!-- Refer to https://github.com/Azure/azure-sdk-for-java/issues/35677  -->
+<!-- Refer to https://techcommunity.microsoft.com/blog/appsonazureblog/seamlessly-integrating-azure-keyvault-with-jarsigner-for-enhanced-security/4125770 -->
 # Integrate KeyVault JCA provider with Jarsigner (PowerShell)
 
 - [Integrate KeyVault JCA provider with Jarsigner (PowerShell)](#integrate-keyvault-jca-provider-with-jarsigner-powershell)
