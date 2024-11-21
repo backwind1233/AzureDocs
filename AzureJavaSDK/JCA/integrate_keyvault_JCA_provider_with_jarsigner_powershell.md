@@ -136,8 +136,7 @@ az role assignment create `
     1. If you are using Java8, try to sign the jar using below command
          ```powershell
          jarsigner -keystore NONE -storetype AzureKeyVault `
-                  -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" `
-                  -verbose -storepass '""' `
+                  -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" -verbose -storepass '""' `
                   -providerName AzureKeyVault `
                   -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider `
                   "-J-Dazure.keyvault.uri=${KEYVAULT_URL}" `
@@ -149,8 +148,7 @@ az role assignment create `
     2. If you are using Java9 or higher, try to sign the jar using below command
          ```powershell
          jarsigner -keystore NONE -storetype AzureKeyVault `
-                  -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" `
-                  -verbose -storepass '""' ` 
+                  -signedjar signerjar.jar ${PARAM_YOUR_JAR_FILE_PATH} "${CERT_NAME}" -verbose -storepass '""' ` 
                   -providerName AzureKeyVault `
                   -providerClass com.azure.security.keyvault.jca.KeyVaultJcaProvider `
                   "-J--module-path=${PARAM_JCA_PROVIDER_JAR_PATH}" `
