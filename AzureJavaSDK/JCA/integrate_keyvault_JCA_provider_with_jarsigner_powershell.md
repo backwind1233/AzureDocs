@@ -160,7 +160,7 @@ az role assignment create `
                   "-J-Dazure.keyvault.client-secret=${CLIENT_SECRET}"
          ```
 3. Check your output, the output may look like this
-    - ![Alt text](../Ressources/JCA/sign_1.jpg)
+    - ![sign_1_powershell_version](../Ressources/JCA/sign_1_powershell_version.png)
     - ![Alt text](../Ressources/JCA/sign_2.jpg)
 
 ### Step 4: Verify with Jarsigner
