@@ -18,7 +18,7 @@ Before beginning, ensure you have the following:
 
 - An Azure subscription - [create one for free](https://azure.microsoft.com/free).
 - [Java Development Kit (JDK)](/java/azure/jdk/) version 8 or 17.
-  > Note: this doc is supported with JDK21.
+  > Note: this doc is not supported with JDK21.
 - [Azure CLI](/cli/azure/install-azure-cli)
 - [jq](https://stedolan.github.io/jq/download/) - a lightweight and flexible command-line JSON processor.
 - Ensure you are using one of the following supported algorithms: DSA, RSA, or ECDSA.
