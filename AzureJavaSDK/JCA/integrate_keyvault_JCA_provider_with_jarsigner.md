@@ -78,7 +78,6 @@ az role assignment create \
 KEYVAULT_URL=$(az keyvault show --name $KEYVAULT_NAME --query "properties.vaultUri" --resource-group $RESOURCE_GROUP_NAME -o tsv| tr -d '\r\n')
 echo $KEYVAULT_URL
 ```
-Note the output as kv_uri for later use.
 
 6. Add a certificate to Key Vault
 
