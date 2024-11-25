@@ -28,7 +28,6 @@ Before beginning, ensure you have the following:
 1. Download the [JCA](https://repo1.maven.org/maven2/com/azure/azure-security-keyvault-jca/2.8.1/azure-security-keyvault-jca-2.8.1.jar) Provider Jar.
 2. If you are using Java8, you need to add the JCA provider jar to the class path.
     1. Place the jar under the folder `${JAVA_HOME}/jre/lib/ext`
-        - ![img.jpg](../Ressources/JCA/place_jar.jpg)
 3. If you are using Java9 or higher, just place the jar in a folder that jarsigner can access.
         
 ## Step 2: Prepare Azure Resources
@@ -47,12 +46,12 @@ $SUBSCRIPTION_ID = (az account show --query id -o tsv)
 
 2. Create a resource group
 ```powershell
-az group create --name $RESOURCE_GROUP_NAME --location "WestUS"
+az group create --name $RESOURCE_GROUP_NAME --location "EastUS"
 ```
 
 3. Create a key vault
 ```powershell
-az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "WestUS"
+az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "EastUS"
 ```
 
 4. Assign role to the Key Vault.

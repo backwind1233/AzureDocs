@@ -47,13 +47,13 @@ SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 2. Create a resource group
 
 ```shell
-az group create --name $RESOURCE_GROUP_NAME --location "WestUS"
+az group create --name $RESOURCE_GROUP_NAME --location "EastUS"
 ```
 
 3. Create a key vault
 
 ```shell
-az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "WestUS"
+az keyvault create --name $KEYVAULT_NAME --resource-group $RESOURCE_GROUP_NAME --location "EastUS"
 ```
 
 4. Assign role to create certificates in the Key Vault.
