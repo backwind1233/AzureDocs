@@ -72,7 +72,7 @@ az role assignment create `
     
 ```
 
-5. Get the Key Vault Uri
+5. Get the Key Vault URL
 ```powershell
 $KEYVAULT_URL = (az keyvault show --name $KEYVAULT_NAME --query "properties.vaultUri" --resource-group $RESOURCE_GROUP_NAME -o tsv).Trim()
 Write-Host $KEYVAULT_URL
