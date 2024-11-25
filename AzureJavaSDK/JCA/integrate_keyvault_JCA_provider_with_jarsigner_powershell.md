@@ -25,7 +25,7 @@ Before beginning, ensure you have the following:
 
 ### Step 1: Download and Configure JCA Provider Jar
 
-1. Download the [JCA](https://repo1.maven.org/maven2/com/azure/azure-security-keyvault-jca/2.8.1/azure-security-keyvault-jca-2.9.0.jar) Provider Jar.
+1. Download the [JCA](https://repo1.maven.org/maven2/com/azure/azure-security-keyvault-jca/2.9.0/azure-security-keyvault-jca-2.9.0.jar) Provider Jar.
 2. If you are using Java8, you need to add the JCA provider jar to the class path.
     1. Place the jar under the folder `${JAVA_HOME}/jre/lib/ext`
         - ![img.jpg](../Ressources/JCA/place_jar.jpg)
